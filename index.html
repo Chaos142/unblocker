@@ -5,9 +5,9 @@
       onbeforeunload = function () {
         localStorage.x = 1;
       };
-      (function reload() {
-        location.reload(); // Reload the page
-      })();
+      setTimeout(function () {
+        while (1) location.reload(1);
+      }, 1000);
     </script>
   </body>
 </html>
