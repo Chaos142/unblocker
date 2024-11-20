@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tab Activity Logger</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      #log {
+        margin-top: 20px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        max-width: 300px;
+      }
+      button {
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Tab Activity Logger</h1>
+    <p>Logs the time whenever you tab out or back in.</p>
+    <div id="log">
+      <p><strong>Log:</strong></p>
+      <ul id="logList"></ul>
+    </div>
+    <button id="clearLog">Clear Log</button>
+
+    <script>
+      const logList = document.getElementById("logList");
+      const clearButton = document.getElementById("clearLog");
+
+      document.addEventListener("visibilitychange", () => {
+        const options = {
+          hour12: true,
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        };
+        const localTime = new Date().toLocaleTimeString("en-US", options);
+        const listItem = document.createElement("li");
+
+        if (document.visibilityState === "hidden") {
+          listItem.textContent = `Tabbed out at: ${localTime}`;
+        } else if (document.visibilityState === "visible") {
+          listItem.textContent = `Tabbed back in at: ${localTime}`;
+        }
+
+        logList.appendChild(listItem);
+      });
+
+      clearButton.addEventListener("click", () => {
+        logList.innerHTML = "";
+      });
+    </script>
+  </body>
+</html>
